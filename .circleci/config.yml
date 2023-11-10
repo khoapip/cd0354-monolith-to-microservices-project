@@ -46,7 +46,10 @@ jobs:
             docker build -t udagram-reverseproxy ./udagram-reverseproxy
             docker tag udagram-reverseproxy khoangothe/udagram-reverseproxy:v1
             echo "Build Successful"
-            docker login -u $USERNAME --password-stdin $PASSWORD
+      - run:
+          name: "Pushing to Hub"
+          command: |
+            docker login -u $USERNAME -p $PASSWORD
             echo "Pushing to hub"
             docker push khoangothe/udagram-api-feed:v1
             docker push khoangothe/udagram-api-user:v1
