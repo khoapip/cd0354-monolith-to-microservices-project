@@ -45,11 +45,10 @@ jobs:
           command: |
             docker build -t udagram-reverseproxy ./udagram-reverseproxy
             docker tag udagram-reverseproxy khoangothe/udagram-reverseproxy:v1
+            echo "Build Successful"
       - run:
           name: "Uploading"
           command: |
-            
-            echo "Build Successful"
             docker login -u $USERNAME --password-stdin $PASSWORD
             echo "Pushing to hub"
             docker push khoangothe/udagram-api-feed:v1
