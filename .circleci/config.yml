@@ -12,7 +12,7 @@ jobs:
       - checkout
       - run:
           name: "Build Docker Images and Push to Hub"
-          command:
+          command: |
             curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
             sudo apt-get install -y nodejs
             echo "Install Node successfull"
