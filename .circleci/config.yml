@@ -17,7 +17,7 @@ jobs:
           command: |
             sudo apt-get update
       - run:
-          name: "Build Docker Images and Push to Hub"
+          name: "Install Node"
           command: |
             curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
             sudo apt-get install -y nodejs
@@ -25,20 +25,32 @@ jobs:
             npm -v
             node -v
             echo "Building....."
+      - run:
+          name: "Build API Feed"
+          command: |
             docker build -t udagram-api-feed ./udagram-api-feed
             docker tag udagram-api-feed khoangothe/udagram-api-feed:v1
-
+      - run:
+          name: "Build API User"
+          command: |
             docker build -t udagram-api-user ./udagram-api-user
             docker tag udagram-api-user khoangothe/udagram-api-user:v1
-
+      - run:
+          name: "Build Front End"
+          command: |
             docker build -t udagram-frontend ./udagram-frontend
             docker tag udagram-frontend khoangothe/udagram-frontend:v1
-
+      - run:
+          name: "Build Reverse Proxy"
+          command: |
             docker build -t udagram-reverseproxy ./udagram-reverseproxy
             docker tag udagram-reverseproxy khoangothe/udagram-reverseproxy:v1
+      - run:
+          name: "Uploading"
+          command: |
             
             echo "Build Successful"
-            docker login -u $USERNAME -p $PASSWORD
+            docker login -u $USERNAME --password-stdin $PASSWORD
             echo "Pushing to hub"
             docker push khoangothe/udagram-api-feed:v1
             docker push khoangothe/udagram-api-user:v1
