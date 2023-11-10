@@ -11,6 +11,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "Update"
+          command: |
+            sudo apt-get update
+      - run:
           name: "Build Docker Images and Push to Hub"
           command: |
             curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
